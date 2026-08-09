@@ -524,11 +524,11 @@ export default function HomePage() {
             </div>
 
             <div className="mt-10 space-y-6">
-              <blockquote className="border-l-2 border-primary pl-4 text-lg text-muted-foreground md:text-xl">
+              <blockquote className="border-l-2 font-serif border-primary pl-4 text-lg text-muted-foreground md:text-xl">
                 &ldquo;Best hibachi I&apos;ve had from a truck. The energy, the
                 heat, the flavor.&rdquo;
               </blockquote>
-              <blockquote className="border-l-2 border-primary pl-4 text-lg text-muted-foreground md:text-xl">
+              <blockquote className="border-l-2 font-serif border-primary pl-4 text-lg text-muted-foreground md:text-xl">
                 &ldquo;Booked Lou for our company picnic and it was the main
                 event.&rdquo;
               </blockquote>
