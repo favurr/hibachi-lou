@@ -560,7 +560,7 @@ export default function HomePage() {
             </div>
             {GALLERY.slice(1).map((item, idx) => (
               <div
-                key={item.alt}
+                key={idx}
                 className={`overflow-hidden rounded-2xl border border-border ${idx === 0 ? "col-span-2 row-span-1" : ""}`}
               >
                 <Image
