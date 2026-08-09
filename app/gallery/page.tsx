@@ -7,7 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const GALLERY = [
-  { id: 1, title: "Truck exterior", hint: "Red and black HoodBachi wrap" },
+  { id: 1, title: "Truck exterior", hint: "Cream, red, and yellow wrap" },
   { id: 2, title: "Hibachi grill", hint: "Chef at the flatop" },
   { id: 3, title: "Bowl close-up", hint: "Steamed rice, charred protein, onions" },
   { id: 4, title: "Serving line", hint: "Packaging and labels" },

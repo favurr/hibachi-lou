@@ -18,8 +18,8 @@ export function PublicNav() {
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-foreground">
           <Link href="/menu" className="hover:text-primary">MENU</Link>
           <Link href="/schedule" className="hover:text-primary">LOCATIONS</Link>
+          <Link href="/about" className="hover:text-primary">ABOUT</Link>
           <Link href="/catering" className="hover:text-primary">CATERING</Link>
-          <Link href="/contact" className="hover:text-primary">ABOUT</Link>
           <Link href="/contact" className="hover:text-primary">BOOK LOU →</Link>
         </nav>
 
@@ -40,8 +40,8 @@ export function PublicNav() {
                   <div className="flex flex-col gap-5 text-base font-medium">
                     <Link href="/menu" onClick={() => setOpen(false)}>Menu</Link>
                     <Link href="/schedule" onClick={() => setOpen(false)}>Locations</Link>
+                    <Link href="/about" onClick={() => setOpen(false)}>About</Link>
                     <Link href="/catering" onClick={() => setOpen(false)}>Catering</Link>
-                    <Link href="/contact" onClick={() => setOpen(false)}>About</Link>
                     <Link href="/contact" onClick={() => setOpen(false)}>Book Lou →</Link>
                   </div>
                 </div>
