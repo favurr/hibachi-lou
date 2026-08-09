@@ -383,7 +383,8 @@ const Map = forwardRef<MapRef, MapProps>(function Map(
   useEffect(() => {
     if (!mapInstance || !isStyleLoaded || !projection) return;
     if (styleSwapInFlightRef.current) return;
-    mapInstance.setProjection(projection);
+    // @ts-ignore mapInstance may expose setProjection depending on maplibre-gl version
+    mapInstance.setProjection?.(projection);
   }, [mapInstance, isStyleLoaded, projection]);
 
   const contextValue = useMemo(
