@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import { ThemeProvider } from "@/components/shared/theme-provider";
 import { PublicNav } from "@/components/public/nav";
 import { PageLoader } from "@/components/public/loader";
+import { Footer } from "@/components/public/footer";
 import "./globals.css";
 
 const geistSans = localFont({
@@ -75,7 +76,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <PageLoader />
           <PublicNav />
           <main className="flex-1">{children}</main>
-        </ThemeProvider>
+          <Footer />
+          </ThemeProvider>
       </body>
     </html>
   );
