@@ -17,12 +17,12 @@ export function PageLoader() {
         },
       });
 
-      tl.toTo(
+      tl.fromTo(
         ".loader-progress",
         { scaleX: 0 },
         { scaleX: 1, duration: 0.8 }
       )
-      .toTo(
+      .fromTo(
         ".loader-counter",
         { opacity: 0, y: 10 },
         { opacity: 1, y: 0, duration: 0.6 },

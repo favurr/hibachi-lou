@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
+import { Map, MapMarker, MarkerContent, MarkerPopup, MapControls } from "@/components/ui/map";
 
 const LOCATIONS = [
   {
@@ -9,21 +9,24 @@ const LOCATIONS = [
     day: "Saturday",
     time: "12:00 PM — 7:00 PM",
     place: "Pittsburgh, PA",
-    map: "https://www.google.com/maps?q=Pittsburgh,+PA",
+    lng: -79.9959,
+    lat: 40.4406,
   },
   {
     id: "08.23.26",
     day: "Saturday",
     time: "12:00 PM — 7:00 PM",
     place: "Pittsburgh, PA",
-    map: "https://www.google.com/maps?q=Pittsburgh,+PA",
+    lng: -79.99,
+    lat: 40.44,
   },
   {
     id: "08.30.26",
     day: "Saturday",
     time: "12:00 PM — 7:00 PM",
     place: "Pittsburgh, PA",
-    map: "https://www.google.com/maps?q=Pittsburgh,+PA",
+    lng: -79.985,
+    lat: 40.445,
   },
 ];
 
@@ -57,23 +60,45 @@ export default function SchedulePage() {
           ))}
         </div>
 
-        <div className="mt-10 grid gap-4 md:grid-cols-3">
-          {LOCATIONS.map((loc) => (
-            <div key={loc.id} className="rounded-2xl border border-cream/20 p-6">
-              <p className="font-mono text-sm tracking-widest text-cream/80">{loc.id}</p>
-              <p className="mt-2 font-mono text-sm uppercase tracking-widest">{loc.day}</p>
-              <p className="mt-1 font-mono text-sm text-cream/80">{loc.time}</p>
-              <p className="mt-1 font-heading text-xl font-semibold">{loc.place}</p>
-              <a
-                href={loc.map}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-4 inline-flex text-sm font-medium underline underline-offset-4"
-              >
-                GET DIRECTIONS →
-              </a>
-            </div>
-          ))}
+        <div className="mt-10 grid gap-8 md:grid-cols-3">
+          <div className="md:col-span-2 h-[420px] w-full overflow-hidden rounded-2xl border border-cream/20">
+            <Map center={[-79.9959, 40.4406]} zoom={12}>
+              <MapControls />
+              {LOCATIONS.map((loc) => (
+                <MapMarker key={loc.id} longitude={loc.lng} latitude={loc.lat}>
+                  <MarkerContent>
+                    <div className="bg-primary size-4 rounded-full border-2 border-white shadow-lg" />
+                  </MarkerContent>
+                  <MarkerPopup>
+                    <div className="space-y-1">
+                      <p className="font-heading font-semibold text-foreground">{loc.place}</p>
+                      <p className="font-mono text-xs text-muted-foreground">{loc.id} • {loc.day}</p>
+                      <p className="font-mono text-xs text-muted-foreground">{loc.time}</p>
+                    </div>
+                  </MarkerPopup>
+                </MapMarker>
+              ))}
+            </Map>
+          </div>
+
+          <div className="space-y-4">
+            {LOCATIONS.map((loc) => (
+              <div key={loc.id} className="rounded-2xl border border-cream/20 p-5">
+                <p className="font-mono text-sm tracking-widest text-cream/80">{loc.id}</p>
+                <p className="mt-2 font-mono text-sm uppercase tracking-widest">{loc.day}</p>
+                <p className="mt-1 font-mono text-sm text-cream/80">{loc.time}</p>
+                <p className="mt-1 font-heading text-xl font-semibold">{loc.place}</p>
+                <a
+                  href={`https://www.google.com/maps?q=${loc.lat},${loc.lng}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 inline-flex text-sm font-medium underline underline-offset-4"
+                >
+                  GET DIRECTIONS →
+                </a>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
