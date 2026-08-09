@@ -5,9 +5,12 @@ import gsap from "gsap";
 
 export function PageLoader() {
   const ref = useRef<HTMLDivElement>(null);
+  const counterRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+      const counter = counterRef.current;
+      const obj = { value: 0 };
       const tl = gsap.timeline({
         defaults: { ease: "power3.inOut" },
         onComplete: () => {
@@ -28,6 +31,16 @@ export function PageLoader() {
         { opacity: 1, y: 0, duration: 0.6 },
         "<"
       )
+      .to(obj, {
+        value: 100,
+        duration: 0.8,
+        ease: "power2.inOut",
+        onUpdate: () => {
+          if (counter) {
+            counter.textContent = `${Math.round(obj.value)}%`;
+          }
+        },
+      }, "<")
       .to(ref.current, {
         yPercent: -100,
         duration: 0.8,
@@ -50,7 +63,7 @@ export function PageLoader() {
         PITTSBURGH / 412
       </p>
       <div className="absolute bottom-10 right-10 flex flex-col items-end">
-        <span className="loader-counter font-mono text-6xl font-light text-foreground md:text-8xl">
+        <span ref={counterRef} className="loader-counter font-mono text-6xl font-light text-foreground md:text-8xl">
           0%
         </span>
       </div>
