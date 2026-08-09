@@ -1,0 +1,178 @@
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        String    @id @default(cuid())
+  email     String    @unique
+  name      String?
+  role      Role      @default(STAFF)
+  orders    Order[]
+  shifts    Shift[]
+  sessions  Session[]
+  accounts  Account[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  emailVerified Boolean @default(false)
+  image         String?
+
+  @@map("user")
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  expiresAt DateTime
+  token     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("session")
+  @@index([userId])
+}
+
+model Account {
+  id                    String    @id @default(cuid())
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@map("account")
+  @@index([userId])
+}
+
+model Verification {
+  id         String    @id @default(cuid())
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime?
+  updatedAt  DateTime?
+
+  @@map("verification")
+  @@index([identifier])
+}
+
+model MenuItem {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique
+  description String?
+  price       Float
+  category    String
+  imageUrl    String?
+  available   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("menu_item")
+}
+
+model DailySpecial {
+  id        String   @id @default(cuid())
+  title     String
+  content   String
+  date      DateTime @unique
+  published Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("daily_special")
+}
+
+model Location {
+  id        String   @id @default(cuid())
+  venue     String
+  address   String?
+  date      DateTime
+  startTime String
+  endTime   String
+  notes     String?
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("location")
+}
+
+model Order {
+  id         String      @id @default(cuid())
+  customer   User?       @relation(fields: [customerId], references: [id])
+  customerId String?
+  guestName  String
+  guestPhone String
+  guestEmail String
+  eventDate  DateTime?
+  guestCount Int?
+  message    String?
+  status     OrderStatus @default(NEW)
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+
+  @@map("order")
+}
+
+model Shift {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date      DateTime
+  startTime String
+  endTime   String
+  location  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("shift")
+}
+
+model InventoryItem {
+  id           String    @id @default(cuid())
+  name         String
+  unit         String
+  stock        Float
+  lowThreshold Float
+  lastRestock  DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  @@map("inventory_item")
+}
+
+enum Role {
+  OWNER
+  MANAGER
+  STAFF
+
+  @@map("role")
+}
+
+enum OrderStatus {
+  NEW
+  QUOTED
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+
+  @@map("order_status")
+}
