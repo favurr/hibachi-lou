@@ -36,10 +36,10 @@ export default function SchedulePage() {
   const [active, setActive] = useState("ALL");
 
   return (
-    <section className="flex flex-1 flex-col bg-primary text-cream">
+    <section className="flex flex-1 flex-col bg-primary text-black">
       <div className="mx-auto max-w-6xl px-4 py-24 w-full">
         <div className="max-w-3xl">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-cream/70">Where to find Lou</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-black/70">Where to find Lou</p>
           <h1 className="mt-4 font-heading text-4xl font-bold tracking-tight md:text-6xl leading-[0.88]">
             WHERE&apos;S<br />
             LOU?
@@ -52,7 +52,7 @@ export default function SchedulePage() {
               key={f}
               onClick={() => setActive(f)}
               className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-                active === f ? "bg-cream text-primary" : "border border-cream/30 text-cream hover:bg-cream/10"
+                active === f ? "bg-black text-primary" : "border border-black/30 text-black hover:bg-black/10"
               }`}
             >
               {f}
@@ -61,7 +61,7 @@ export default function SchedulePage() {
         </div>
 
         <div className="mt-10 grid gap-8 md:grid-cols-3">
-          <div className="md:col-span-2 h-[420px] w-full overflow-hidden rounded-2xl border border-cream/20">
+          <div className="md:col-span-2 h-105 w-full overflow-hidden rounded-2xl border border-black/20">
             <Map center={[-79.9959, 40.4406]} zoom={12}>
               <MapControls />
               {LOCATIONS.map((loc) => (
@@ -83,10 +83,10 @@ export default function SchedulePage() {
 
           <div className="space-y-4">
             {LOCATIONS.map((loc) => (
-              <div key={loc.id} className="rounded-2xl border border-cream/20 p-5">
-                <p className="font-mono text-sm tracking-widest text-cream/80">{loc.id}</p>
+              <div key={loc.id} className="rounded-2xl border border-black/20 p-5">
+                <p className="font-mono text-sm tracking-widest text-black/80">{loc.id}</p>
                 <p className="mt-2 font-mono text-sm uppercase tracking-widest">{loc.day}</p>
-                <p className="mt-1 font-mono text-sm text-cream/80">{loc.time}</p>
+                <p className="mt-1 font-mono text-sm text-black/80">{loc.time}</p>
                 <p className="mt-1 font-heading text-xl font-semibold">{loc.place}</p>
                 <a
                   href={`https://www.google.com/maps?q=${loc.lat},${loc.lng}`}
