@@ -62,7 +62,7 @@ export default function SchedulePage() {
 
         <div className="mt-10 grid gap-8 md:grid-cols-3">
           <div className="md:col-span-2 h-105 w-full overflow-hidden rounded-2xl border border-black/20">
-            <Map center={[-79.9959, 40.4406]} zoom={12}>
+            <Map center={[-79.9959, 40.4406]} zoom={13}>
               <MapControls />
               {LOCATIONS.map((loc) => (
                 <MapMarker key={loc.id} longitude={loc.lng} latitude={loc.lat}>
