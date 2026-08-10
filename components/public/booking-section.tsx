@@ -2,9 +2,8 @@
 
 import { FadeInSection } from "@/components/shared/fade-in-section";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
 
 export function BookingSection() {

@@ -8,7 +8,7 @@ const MENU = [
 
 export function MenuSection() {
   return (
-    <section id="menu" className="flex flex-1 flex-col bg-background">
+    <section id="menu" className="flex flex-1 reveal-trigger flex-col bg-background">
       <div className="mx-auto max-w-6xl px-4 py-24 w-full">
         <div className="max-w-3xl">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-red-700">Menu</p>
@@ -21,7 +21,7 @@ export function MenuSection() {
         <div className="mt-16 grid gap-6 md:grid-cols-3">
           {MENU.map((item) => (
             <div key={item.id} className="group overflow-hidden rounded-2xl border border-border bg-card transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg">
-              <div className="relative aspect-[4/3] w-full overflow-hidden">
+              <div className="relative aspect-4/3 w-full overflow-hidden">
                 <Image src={item.image} alt={item.title} fill className="object-cover transition-transform duration-500 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 33vw" />
               </div>
               <div className="p-6">

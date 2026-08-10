@@ -5,6 +5,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { TransitionLink } from "../shared/transition-provider";
 
 const SECTIONS = [
   { href: "/#menu", label: "MENU" },
@@ -38,9 +39,13 @@ export function PublicNav() {
   return (
     <header className="sticky top-0 z-40 w-full border-b border-border bg-background/90 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
-        <Link href="/" className="font-heading text-base font-semibold tracking-wide text-foreground">
+        <TransitionLink
+            href="/"
+            className="font-serif text-lg tracking-wide text-foreground hover:text-foreground/80 transition-colors flex items-baseline gap-1"
+            aria-label="Home"
+          >
           HIBACHI LOU
-        </Link>
+        </TransitionLink>
 
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-foreground">
           {desktopLinks}

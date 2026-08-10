@@ -12,12 +12,12 @@ const GALLERY = [
 
 export function GallerySection() {
   return (
-    <FadeInSection id="gallery" className="bg-background">
+    <section id="gallery" className="bg-background reveal-trigger">
       <div className="mx-auto max-w-6xl px-4 py-24 w-full">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div className="max-w-3xl">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-red-700">Gallery</p>
-            <h2 className="mt-4 font-heading text-4xl font-bold tracking-tight text-foreground md:text-6xl leading-[0.88]">FROM THE TRUCK.</h2>
+            <h2 className="mt-4 font-heading reveal-text text-4xl font-bold tracking-tight text-foreground md:text-6xl leading-[0.88]">FROM THE TRUCK.</h2>
             <p className="mt-4 text-lg text-muted-foreground md:text-xl">Behind the scenes, food shots, and event setups around Pittsburgh.</p>
           </div>
           <Link href="/gallery" className="text-sm font-medium text-foreground hover:text-primary underline underline-offset-4">See More</Link>
@@ -32,6 +32,6 @@ export function GallerySection() {
           ))}
         </div>
       </div>
-    </FadeInSection>
+    </section>
   );
 }

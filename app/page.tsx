@@ -10,6 +10,7 @@ import { CateringSection } from "@/components/public/catering-section";
 import { SocialProofSection } from "@/components/public/social-proof-section";
 import { InstagramSection } from "@/components/public/instagram-section";
 import { BookingSection } from "@/components/public/booking-section";
+import { HomeAnimations } from "@/components/shared/HomeAnimations";
 
 export default function HomePage() {
   return (
@@ -19,23 +20,23 @@ export default function HomePage() {
 
         <div className="relative mx-auto max-w-6xl px-4 py-12 w-full flex-1 flex items-center">
           <div className="max-w-4xl space-y-8">
-            <div className="space-y-4">
+            <div className="space-y-4 hero-text">
               <p className="inline-block text-xs font-semibold uppercase tracking-[0.2em] text-red-700 border border-red-700/20 rounded-full px-4 py-1.5">
                 Pittsburgh Hibachi
               </p>
-              <h1 className="text-6xl font-bold tracking-tight font-heading text-foreground md:text-8xl leading-[0.88]">
+              <h1 className="text-6xl hero-text font-bold tracking-tight font-heading text-foreground md:text-8xl leading-[0.88]">
                 PITTSBURGH&apos;S
                 <br />
                 HIBACHI
                 <br />
                 ON WHEELS.
               </h1>
-              <p className="text-xl text-muted-foreground md:text-2xl max-w-2xl leading-relaxed">
+              <p className="text-xl hero-text text-muted-foreground md:text-2xl max-w-2xl leading-relaxed">
                 Big flavor, hot grills, and hibachi cooked right in front of you. Catch us around Pittsburgh or bring Hibachi Lou to your next event.
               </p>
             </div>
 
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-4 hero-text">
               <Link href="#locations">
                 <Button size="lg" className="h-12 px-8 text-base">
                   FIND THE TRUCK →
@@ -48,7 +49,7 @@ export default function HomePage() {
               </Link>
             </div>
 
-            <div className="flex flex-wrap items-center gap-8 pt-8 border-t border-border">
+            <div className="flex flex-wrap items-center gap-8 pt-8 border-t hero-text border-border">
               <div>
                 <p className="text-xs uppercase tracking-wider text-muted-foreground mb-1">Truck</p>
                 <p className="text-sm font-medium text-foreground">Pittsburgh, PA</p>

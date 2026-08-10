@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export function AboutSection() {
   return (
-    <FadeInSection id="about" className="bg-background">
+    <section id="about" className="bg-background reveal-trigger">
       <div className="mx-auto max-w-6xl px-4 py-24 w-full">
         <div className="max-w-3xl">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-red-700">About</p>
@@ -21,6 +21,6 @@ export function AboutSection() {
           </div>
         </div>
       </div>
-    </FadeInSection>
+    </section>
   );
 }

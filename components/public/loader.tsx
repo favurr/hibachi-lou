@@ -62,7 +62,7 @@ export function PageLoader() {
   return (
     <div
       ref={ref}
-      className="fixed inset-0 z-[70] flex flex-col items-center justify-center bg-[#f5f0e8]"
+      className="fixed inset-0 z-70 flex flex-col items-center justify-center bg-[#f5f0e8]"
     >
       <div className="loader-logo font-heading text-5xl font-semibold tracking-tight text-foreground md:text-7xl">
         HIBACHI LOU
