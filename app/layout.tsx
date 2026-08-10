@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { ThemeProvider } from "@/components/shared/theme-provider";
 import { PublicNav } from "@/components/public/nav";
+import { ThemeProvider } from "@/components/shared/theme-provider";
 import { PageLoader } from "@/components/public/loader";
+import { PageTransition } from "@/components/shared/page-transition";
 import { SmoothScroll } from "@/components/shared/smooth-scroll";
 import { Footer } from "@/components/public/footer";
 import "./globals.css";
@@ -77,7 +78,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <SmoothScroll />
           <PageLoader />
           <PublicNav />
-          <main className="flex-1">{children}</main>
+          <PageTransition>
+            <main className="flex-1">{children}</main>
+          </PageTransition>
           <Footer />
         </ThemeProvider>
       </body>

@@ -1,4 +1,5 @@
 import { FadeInSection } from "@/components/shared/fade-in-section";
+import Link from "next/link";
 
 export function AboutSection() {
   return (
@@ -14,9 +15,9 @@ export function AboutSection() {
             Born from late-night grills and street-side hospitality, the truck became a local staple for weekend parties, weddings, and late runs. Lou handles the menu, the grill, and the cleanup. You just bring the hunger.
           </p>
           <div className="mt-8">
-            <a href="/about" className="inline-flex h-12 items-center justify-center rounded-lg bg-primary px-8 text-base font-medium text-primary-foreground hover:bg-primary/90">
+            <Link href="/about" className="inline-flex h-12 items-center justify-center rounded-lg bg-primary px-8 text-base font-medium text-primary-foreground hover:bg-primary/90">
               Read More →
-            </a>
+            </Link>
           </div>
         </div>
       </div>

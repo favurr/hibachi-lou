@@ -1,4 +1,5 @@
 import { FadeInSection } from "@/components/shared/fade-in-section";
+import Link from "next/link";
 
 const GALLERY = [
   { id: 1, title: "Truck exterior", hint: "Cream, red, and yellow wrap" },
@@ -19,7 +20,7 @@ export function GallerySection() {
             <h2 className="mt-4 font-heading text-4xl font-bold tracking-tight text-foreground md:text-6xl leading-[0.88]">FROM THE TRUCK.</h2>
             <p className="mt-4 text-lg text-muted-foreground md:text-xl">Behind the scenes, food shots, and event setups around Pittsburgh.</p>
           </div>
-          <a href="/gallery" className="text-sm font-medium text-foreground hover:text-primary underline underline-offset-4">See More</a>
+          <Link href="/gallery" className="text-sm font-medium text-foreground hover:text-primary underline underline-offset-4">See More</Link>
         </div>
 
         <div className="mt-16 grid gap-4 md:grid-cols-3">

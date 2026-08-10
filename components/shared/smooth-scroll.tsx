@@ -2,13 +2,13 @@
 
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
-import { gsap } from "gsap";
 import Lenis from "lenis";
 
 export function SmoothScroll() {
   const pathname = usePathname();
   const lenisRef = useRef<Lenis | null>(null);
-  const overlayRef = useRef<HTMLDivElement>(null);
+  const frameRef = useRef<number | null>(null);
+  const activeRef = useRef(true);
 
   useEffect(() => {
     const lenis = new Lenis({
@@ -17,15 +17,18 @@ export function SmoothScroll() {
       smoothWheel: true,
     });
     lenisRef.current = lenis;
+    activeRef.current = true;
 
     const raf = (time: number) => {
+      if (!activeRef.current) return;
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      frameRef.current = requestAnimationFrame(raf);
     };
-    const frame = requestAnimationFrame(raf);
+    frameRef.current = requestAnimationFrame(raf);
 
     return () => {
-      cancelAnimationFrame(frame);
+      activeRef.current = false;
+      if (frameRef.current) cancelAnimationFrame(frameRef.current);
       lenis.destroy();
     };
   }, []);
@@ -41,11 +44,14 @@ export function SmoothScroll() {
       const href = target.getAttribute("href");
       if (!href || !href.startsWith("#")) return;
 
+      if (e.metaKey || e.ctrlKey || e.altKey || e.shiftKey || e.button !== 0) return;
+
       const id = href.slice(1);
       const el = document.getElementById(id);
       if (!el) return;
 
       e.preventDefault();
+      window.location.hash = id;
       lenis.scrollTo(el, { offset: 0, duration: 1.2 });
     };
 
@@ -53,36 +59,5 @@ export function SmoothScroll() {
     return () => document.removeEventListener("click", onClick, true);
   }, [pathname]);
 
-  useEffect(() => {
-    if (!overlayRef.current) return;
-
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline();
-
-      tl.set(overlayRef.current, { yPercent: 100 })
-        .to(overlayRef.current, { yPercent: 0, duration: 0.5, ease: "power3.inOut" })
-        .to(overlayRef.current, { yPercent: -100, duration: 0.5, ease: "power3.inOut", delay: 0.1 });
-    });
-
-    return () => ctx.revert();
-  }, [pathname]);
-
-  return (
-    <>
-      <div
-        ref={overlayRef}
-        className="fixed inset-0 z-[60] bg-background"
-        aria-hidden="true"
-      />
-      <style
-        dangerouslySetInnerHTML={{
-          __html: `
-            html { scroll-behavior: auto; }
-            html.lenis, html.lenis body { height: auto; }
-            .lenis.lenis-smooth { scroll-behavior: auto !important; }
-          `,
-        }}
-      />
-    </>
-  );
+  return null;
 }

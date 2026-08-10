@@ -19,7 +19,13 @@ export default function GalleryPage() {
 
         <div className="mt-16 grid gap-4 md:grid-cols-3">
           {GALLERY.map((item) => (
-            <div key={item.id} className="flex aspect-[4/3] flex-col justify-end rounded-xl border border-border bg-muted p-5">
+            <div key={item.id} className="relative flex aspect-[4/3] flex-col justify-end rounded-xl border border-border bg-muted p-5">
+              <Image
+                src={item.src}
+                alt={item.title}
+                fill
+                className="absolute inset-0 -z-10 h-full w-full rounded-xl object-cover"
+              />
               <p className="text-sm font-medium text-foreground">{item.title}</p>
               <p className="text-xs text-muted-foreground">{item.hint}</p>
             </div>
