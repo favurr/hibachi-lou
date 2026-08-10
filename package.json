@@ -7,8 +7,8 @@
     "build": "next build && npx prisma generate",
     "start": "next start",
     "lint": "biome check",
-    "postinstall": "node -e \"const db=process.env.DATABASE_URL; const skip=process.env.PRISMA_SKIP_POSTINSTALL_GENERATE==='true'; if(db && !skip){require('child_process').execSync('npx prisma generate',{stdio:'inherit'})} else {console.log('Skipping prisma generate in CI/preview')}\"",
-    "format": "biome format --write"
+    "format": "biome format --write",
+    "postinstall": "npx prisma generate"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",
