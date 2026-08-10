@@ -6,8 +6,6 @@ const LOCATIONS = [
   { id: "08.30.26", day: "Saturday", time: "12:00 PM — 7:00 PM", place: "Pittsburgh, PA", lng: -79.985, lat: 40.445 },
 ];
 
-const FILTERS = ["ALL", "THIS WEEK", "THIS MONTH"];
-
 export function LocationsSection() {
   return (
     <section id="locations" className="flex flex-1 flex-col bg-primary text-black">

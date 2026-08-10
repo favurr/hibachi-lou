@@ -20,7 +20,6 @@ export function PublicNav() {
           <Link href="#gallery" className="hover:text-primary">GALLERY</Link>
           <Link href="#locations" className="hover:text-primary">LOCATIONS</Link>
           <Link href="#catering" className="hover:text-primary">CATERING</Link>
-          <Link href="#contact" className="hover:text-primary">BOOK LOU →</Link>
         </nav>
 
         <div className="flex items-center gap-2">

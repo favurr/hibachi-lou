@@ -8,12 +8,12 @@ import { CateringSection } from "@/components/public/catering-section";
 import { SocialProofSection } from "@/components/public/social-proof-section";
 import { InstagramSection } from "@/components/public/instagram-section";
 import { BookingSection } from "@/components/public/booking-section";
+import { GallerySection } from "@/components/public/gallery-section";
 
 export default function HomePage() {
   return (
     <>
       <section className="relative flex min-h-[calc(100vh-4rem)] flex-col bg-background overflow-hidden">
-        <div className="absolute inset-0 bg-cover bg-center" />
         <div className="absolute inset-0 bg-background/80 dark:bg-background/80" />
 
         <div className="relative mx-auto max-w-6xl px-4 py-12 w-full flex-1 flex items-center">
@@ -71,11 +71,15 @@ export default function HomePage() {
 
       <MenuSection />
 
+      <GallerySection />
+
       <ExperienceSection />
 
       <LocationsSection />
 
       <CateringSection />
+
+      <BookingSection />
 
       <SocialProofSection />
 

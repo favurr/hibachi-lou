@@ -27,6 +27,9 @@ export function FadeInSection({
   const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) return;
+
     const ctx = gsap.context(() => {
       gsap.fromTo(
         contentRef.current?.children || [],
@@ -49,7 +52,7 @@ export function FadeInSection({
   }, [y, duration, stagger]);
 
   return (
-    <section id={id} className={className}>
+    <section ref={sectionRef} id={id} className={className}>
       <div ref={contentRef}>{children}</div>
     </section>
   );
