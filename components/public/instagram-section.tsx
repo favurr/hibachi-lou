@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 
 const GRID = [
@@ -10,7 +8,7 @@ const GRID = [
   { src: "https://images.unsplash.com/photo-1551782450-17144efb9c50?w=1200&auto=format&fit=crop&q=80", alt: "Event" },
 ];
 
-export default function InstagramPage() {
+export function InstagramSection() {
   return (
     <section className="flex flex-1 flex-col bg-background">
       <div className="mx-auto max-w-6xl px-4 py-24 w-full">
@@ -25,12 +23,7 @@ export default function InstagramPage() {
             <Image src={GRID[0].src} alt={GRID[0].alt} width={1200} height={900} className="h-full w-full object-cover" />
           </div>
           {GRID.slice(1).map((item, idx) => (
-            <div
-              key={item.alt}
-              className={`overflow-hidden rounded-2xl border border-border ${
-                idx === 0 ? "col-span-2 row-span-1" : ""
-              }`}
-            >
+            <div key={item.alt} className={`overflow-hidden rounded-2xl border border-border ${idx === 0 ? "col-span-2 row-span-1" : ""}`}>
               <Image src={item.src} alt={item.alt} width={800} height={600} className="h-full w-full object-cover" />
             </div>
           ))}
