@@ -16,15 +16,14 @@ export function PublicNav() {
         </Link>
 
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-foreground">
-          <Link href="/menu" className="hover:text-primary">MENU</Link>
-          <Link href="/schedule" className="hover:text-primary">LOCATIONS</Link>
-          <Link href="/about" className="hover:text-primary">ABOUT</Link>
-          <Link href="/catering" className="hover:text-primary">CATERING</Link>
-          <Link href="/contact" className="hover:text-primary">BOOK LOU →</Link>
+          <Link href="#menu" className="hover:text-primary">MENU</Link>
+          <Link href="#gallery" className="hover:text-primary">GALLERY</Link>
+          <Link href="#locations" className="hover:text-primary">LOCATIONS</Link>
+          <Link href="#catering" className="hover:text-primary">CATERING</Link>
         </nav>
 
         <div className="flex items-center gap-2">
-          <Link href="/contact" className="hidden md:inline-flex text-sm font-medium hover:text-primary">
+          <Link href="#contact" className="hidden md:inline-flex text-sm font-medium hover:text-primary">
             BOOK LOU →
           </Link>
           <div className="md:hidden">
@@ -38,11 +37,11 @@ export function PublicNav() {
                     <X className="h-5 w-5" />
                   </Button>
                   <div className="flex flex-col gap-5 text-base font-medium">
-                    <Link href="/menu" onClick={() => setOpen(false)}>Menu</Link>
-                    <Link href="/schedule" onClick={() => setOpen(false)}>Locations</Link>
-                    <Link href="/about" onClick={() => setOpen(false)}>About</Link>
-                    <Link href="/catering" onClick={() => setOpen(false)}>Catering</Link>
-                    <Link href="/contact" onClick={() => setOpen(false)}>Book Lou →</Link>
+                    <Link href="#menu" onClick={() => setOpen(false)}>Menu</Link>
+                    <Link href="#gallery" onClick={() => setOpen(false)}>Gallery</Link>
+                    <Link href="#locations" onClick={() => setOpen(false)}>Locations</Link>
+                    <Link href="#catering" onClick={() => setOpen(false)}>Catering</Link>
+                    <Link href="#contact" onClick={() => setOpen(false)}>Book Lou →</Link>
                   </div>
                 </div>
               </div>
