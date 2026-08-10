@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import { ThemeProvider } from "@/components/shared/theme-provider";
 import { PublicNav } from "@/components/public/nav";
 import { PageLoader } from "@/components/public/loader";
+import { SmoothScroll } from "@/components/shared/smooth-scroll";
 import { Footer } from "@/components/public/footer";
 import "./globals.css";
 
@@ -72,12 +73,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} ${theSeasons.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+          <SmoothScroll />
           <PageLoader />
           <PublicNav />
           <main className="flex-1">{children}</main>
           <Footer />
-          </ThemeProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
