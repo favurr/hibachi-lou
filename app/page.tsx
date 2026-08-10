@@ -79,7 +79,88 @@ export default function HomePage() {
 
       <SocialProofSection />
 
-      <InstagramSection />
+      <section className="flex flex-1 flex-col bg-background">
+        <div className="mx-auto max-w-6xl px-4 py-24 w-full">
+          <div className="max-w-3xl">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-red-700">
+              Social proof
+            </p>
+            <h2 className="mt-4 font-heading text-4xl font-bold tracking-tight text-foreground md:text-6xl leading-[0.88]">
+              PITTSBURGH
+              <br />
+              KNOWS WHAT&apos;S UP.
+            </h2>
+            <div className="mt-6 flex flex-wrap items-baseline gap-6">
+              <div>
+                <p className="font-mono text-sm uppercase tracking-widest text-muted-foreground">
+                  BEST OF PGH
+                </p>
+                <p className="font-heading text-3xl font-bold text-foreground">
+                  2025
+                </p>
+              </div>
+              <div>
+                <p className="font-mono text-sm uppercase tracking-widest text-muted-foreground">
+                  #1
+                </p>
+                <p className="font-heading text-3xl font-bold text-foreground">
+                  FOOD TRUCK
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-10 space-y-6">
+              <blockquote className="border-l-2 font-serif border-primary pl-4 text-lg text-muted-foreground md:text-xl">
+                &ldquo;Best hibachi I&apos;ve had from a truck. The energy, the
+                heat, the flavor.&rdquo;
+              </blockquote>
+              <blockquote className="border-l-2 font-serif border-primary pl-4 text-lg text-muted-foreground md:text-xl">
+                &ldquo;Booked Lou for our company picnic and it was the main
+                event.&rdquo;
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="flex flex-1 flex-col bg-background">
+        <div className="mx-auto max-w-6xl px-4 py-24 w-full">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-red-700">
+            Instagram
+          </p>
+          <h2 className="mt-4 font-heading text-4xl font-bold tracking-tight text-foreground md:text-6xl leading-[0.88]">
+            FOLLOW
+            <br />
+            THE FLAVOR.
+          </h2>
+
+          <div className="mt-10 grid grid-cols-2 gap-3 md:grid-cols-6">
+            <div className="col-span-2 row-span-2 overflow-hidden rounded-2xl border border-border">
+              <Image
+                src={GALLERY[0].src}
+                alt={GALLERY[0].alt}
+                width={1200}
+                height={900}
+                className="h-full w-full object-cover"
+              />
+            </div>
+            {GALLERY.slice(1).map((item, idx) => (
+              <div
+                key={idx}
+                className={`overflow-hidden rounded-2xl border border-border ${idx === 0 ? "col-span-2 row-span-1" : ""}`}
+              >
+                <Image
+                  src={item.src}
+                  alt={item.alt}
+                  width={800}
+                  height={600}
+                  className="h-full w-full object-cover"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       <section className="relative flex flex-1 flex-col bg-primary text-cream">
         <div className="mx-auto max-w-6xl px-4 py-32 w-full text-center">

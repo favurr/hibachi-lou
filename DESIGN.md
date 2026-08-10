@@ -1,5 +1,8 @@
+# Design System: Hibachi Lou
+
 ---
-name: Hibachi Lou
+
+`name: Hibachi Lou
 description: Pittsburgh's hibachi food truck — fire, flavor, and the 412.
 colors:
   grill-ember: "oklch(58.405% 0.22683 26.856)"
@@ -95,14 +98,12 @@ components:
     backgroundColor: "{colors.charcoal}"
     textColor: "{colors.grill-ember}"
     rounded: "9999px"
-    padding: "8px 16px"
+    padding: "8px 16px"`
 ---
-
-# Design System: Hibachi Lou
 
 ## Overview
 
-**Creative North Star: "The Street Flame"**
+### Creative North Star: "The Street Flame"
 
 Raw, unapologetic street-food energy meets editorial craft. The design speaks in fire and grit — uppercase serif headlines that hit like a food truck menu board, warm parchment backgrounds that carry the warmth of a griddle, and a single ember-red accent that burns through every surface it touches. The system is dense where it matters (navigation, labels, data) and generous where the experience breathes (hero sections, imagery, the space around headings). Photography and the grill itself do the heavy visual lifting; the interface stays tonal, typographic, and out of the way.
 
@@ -159,7 +160,7 @@ The palette is a grill: ember against warm paper, charcoal for contrast, and gol
 - **Body** (400, 1.125rem, 1.6): Paragraph text. Geist Sans, relaxed leading, max 65–75ch measure.
 - **Label** (500, 0.75rem, 1.4, tracking 0.2em, uppercase): Section kickers, metadata, dates, prices, filter chips. Geist Mono. The system's utilitarian voice.
 
-### Named Rules
+### Rules
 
 **The Board Rule.** All display and headline text is uppercase. Mixed-case headings are body, not display.
 
