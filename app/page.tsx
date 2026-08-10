@@ -2,13 +2,14 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Marquee } from "@/components/public/marquee";
 import { MenuSection } from "@/components/public/menu-section";
+import { GallerySection } from "@/components/public/gallery-section";
+import { AboutSection } from "@/components/public/about-section";
 import { ExperienceSection } from "@/components/public/experience-section";
 import { LocationsSection } from "@/components/public/locations-section";
 import { CateringSection } from "@/components/public/catering-section";
 import { SocialProofSection } from "@/components/public/social-proof-section";
 import { InstagramSection } from "@/components/public/instagram-section";
 import { BookingSection } from "@/components/public/booking-section";
-import { GallerySection } from "@/components/public/gallery-section";
 
 export default function HomePage() {
   return (
@@ -54,7 +55,7 @@ export default function HomePage() {
               </div>
               <div>
                 <p className="text-xs uppercase tracking-wider text-muted-foreground mb-1">Phone</p>
-                <a href="tel:+131****8567" className="text-sm font-medium text-foreground hover:text-primary">
+                <a href="tel:+13136298567" className="text-sm font-medium text-foreground hover:text-primary">
                   (313) 629-8567
                 </a>
               </div>
@@ -72,6 +73,8 @@ export default function HomePage() {
       <MenuSection />
 
       <GallerySection />
+
+      <AboutSection />
 
       <ExperienceSection />
 

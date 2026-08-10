@@ -1,52 +1,60 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import gsap from "gsap";
+import { gsap } from "gsap";
+
+const LOADER_KEY = "hibachi-lou-loader-shown";
 
 export function PageLoader() {
   const ref = useRef<HTMLDivElement>(null);
-  const counterRef = useRef<HTMLSpanElement>(null);
+  const initialized = useRef(false);
 
   useEffect(() => {
+    const root = ref.current;
+    if (!root || initialized.current) return;
+    initialized.current = true;
+
+    const shouldRun = typeof window !== "undefined" && !sessionStorage.getItem(LOADER_KEY);
+
+    if (!shouldRun) {
+      gsap.set(root, { display: "none" });
+      return;
+    }
+
+    sessionStorage.setItem(LOADER_KEY, "true");
+
     const ctx = gsap.context(() => {
-      const counter = counterRef.current;
-      const obj = { value: 0 };
       const tl = gsap.timeline({
         defaults: { ease: "power3.inOut" },
         onComplete: () => {
-          if (ref.current) {
-            gsap.set(ref.current, { display: "none" });
-          }
+          gsap.set(root, { display: "none" });
         },
       });
 
       tl.fromTo(
-        ".loader-progress",
-        { scaleX: 0 },
-        { scaleX: 1, duration: 0.8 }
+        ".loader-logo",
+        { opacity: 0, scale: 0.96 },
+        { opacity: 1, scale: 1, duration: 0.7 }
       )
       .fromTo(
-        ".loader-counter",
-        { opacity: 0, y: 10 },
+        ".loader-meta",
+        { opacity: 0, y: 8 },
         { opacity: 1, y: 0, duration: 0.6 },
-        "<"
+        "<0.1"
       )
-      .to(obj, {
-        value: 100,
-        duration: 0.8,
-        ease: "power2.inOut",
-        onUpdate: () => {
-          if (counter) {
-            counter.textContent = `${Math.round(obj.value)}%`;
-          }
-        },
-      }, "<")
-      .to(ref.current, {
+      .fromTo(
+        ".loader-progress",
+        { scaleX: 0 },
+        { scaleX: 1, duration: 0.9, ease: "power2.inOut" },
+        "<0.2"
+      )
+      .to(root, {
         yPercent: -100,
-        duration: 0.8,
+        duration: 0.9,
         ease: "power4.inOut",
+        delay: 0.15,
       });
-    }, ref);
+    }, root);
 
     return () => ctx.revert();
   }, []);
@@ -54,20 +62,15 @@ export function PageLoader() {
   return (
     <div
       ref={ref}
-      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background"
+      className="fixed inset-0 z-[70] flex flex-col items-center justify-center bg-[#f5f0e8]"
     >
-      <p className="font-heading text-4xl font-semibold tracking-tight text-foreground md:text-6xl">
+      <div className="loader-logo font-heading text-5xl font-semibold tracking-tight text-foreground md:text-7xl">
         HIBACHI LOU
-      </p>
-      <p className="mt-3 font-mono text-sm tracking-widest text-muted-foreground">
-        PITTSBURGH / 412
-      </p>
-      <div className="absolute bottom-10 right-10 flex flex-col items-end">
-        <span ref={counterRef} className="loader-counter font-mono text-6xl font-light text-foreground md:text-8xl">
-          0%
-        </span>
       </div>
-      <div className="absolute bottom-10 left-10 h-1 w-32 overflow-hidden rounded-full bg-muted">
+      <p className="loader-meta mt-3 font-mono text-sm tracking-widest text-foreground/80">
+        412 / PITTSBURGH
+      </p>
+      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 h-1 w-40 overflow-hidden rounded-full bg-foreground/20">
         <div
           className="loader-progress h-full origin-left scale-x-0 bg-primary"
           style={{ transformOrigin: "left" }}
