@@ -11,12 +11,19 @@ export function proxy(request: NextRequest) {
       return NextResponse.next();
     }
 
-    // Check for Better Auth session cookie presence
-    const sessionCookie = 
-      request.cookies.get("better-auth.session_token") || 
-      request.cookies.get("__secure-better-auth.session_token");
+    // Check for Better Auth session cookie presence (all possible names)
+    const cookieNames = [
+      "session_token",
+      "better-auth.session_token",
+      "__secure-session_token",
+      "__secure-better-auth.session_token",
+      "__host-session_token",
+      "__host-better-auth.session_token",
+    ];
 
-    if (!sessionCookie) {
+    const hasSession = cookieNames.some((name) => request.cookies.has(name));
+
+    if (!hasSession) {
       // Redirect to login page
       const loginUrl = new URL("/admin/login", request.url);
       return NextResponse.redirect(loginUrl);
