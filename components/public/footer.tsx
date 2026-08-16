@@ -1,4 +1,6 @@
-import Link from "next/link";
+"use client";
+
+import { TransitionLink } from "../shared/transition-provider";
 
 export function Footer() {
   return (
@@ -10,11 +12,11 @@ export function Footer() {
             <p className="font-mono text-xs text-muted-foreground">PITTSBURGH, PA</p>
           </div>
           <nav className="flex flex-wrap gap-6 text-sm font-medium text-foreground">
-            <Link href="/menu" className="hover:text-primary">MENU</Link>
-            <Link href="/schedule" className="hover:text-primary">LOCATIONS</Link>
-            <Link href="/catering" className="hover:text-primary">CATERING</Link>
-            <Link href="/contact" className="hover:text-primary">ABOUT</Link>
-            <Link href="/contact" className="hover:text-primary">BOOK LOU →</Link>
+            <TransitionLink href="/menu" className="hover:text-primary">MENU</TransitionLink>
+            <TransitionLink href="/locations" className="hover:text-primary">LOCATIONS</TransitionLink>
+            <TransitionLink href="/catering" className="hover:text-primary">CATERING</TransitionLink>
+            <TransitionLink href="/about" className="hover:text-primary">ABOUT</TransitionLink>
+            <TransitionLink href="/catering" className="hover:text-primary">BOOK LOU →</TransitionLink>
           </nav>
         </div>
       </div>

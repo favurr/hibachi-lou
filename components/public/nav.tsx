@@ -2,18 +2,17 @@
 
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { TransitionLink } from "../shared/transition-provider";
 
 const SECTIONS = [
   { href: "/menu", label: "MENU" },
-  { href: "/#gallery", label: "GALLERY" },
-  { href: "/#about", label: "ABOUT" },
+  { href: "/gallery", label: "GALLERY" },
+  { href: "/about", label: "ABOUT" },
   { href: "/locations", label: "LOCATIONS" },
   { href: "/catering", label: "CATERING" },
-  { href: "/#contact", label: "BOOK LOU →" },
+  { href: "/catering", label: "BOOK LOU →" },
 ];
 
 export function PublicNav() {
@@ -22,22 +21,18 @@ export function PublicNav() {
   const isHome = pathname === "/";
 
   const desktopLinks = SECTIONS.map((item) => {
-    const isAnchor = item.href.startsWith("/#");
-    const href = isAnchor && isHome ? item.href.replace(/^\/#/, "#") : item.href;
     return (
-      <Link key={item.href} href={href} className="hover:text-primary">
+      <TransitionLink key={item.href} href={item.href} className="hover:text-primary">
         {item.label}
-      </Link>
+      </TransitionLink>
     );
   });
 
   const mobileLinks = SECTIONS.map((item) => {
-    const isAnchor = item.href.startsWith("/#");
-    const href = isAnchor && isHome ? item.href.replace(/^\/#/, "#") : item.href;
     return (
-      <Link key={item.href} href={href} onClick={() => setOpen(false)}>
+      <TransitionLink key={item.href} href={item.href} onClick={() => setOpen(false)}>
         {item.label}
-      </Link>
+      </TransitionLink>
     );
   });
 
@@ -56,9 +51,9 @@ export function PublicNav() {
           {desktopLinks}
         </nav>
         <div className="flex items-center gap-2">
-          <Link href={isHome ? "#contact" : "/#contact"} className="hidden md:inline-flex text-sm font-medium hover:text-primary">
+          <TransitionLink href="/catering" className="hidden md:inline-flex text-sm font-medium hover:text-primary">
             BOOK LOU →
-          </Link>
+          </TransitionLink>
           <div className="md:hidden">
             <Button variant="ghost" size="icon" onClick={() => setOpen(true)}>
               <Menu className="h-5 w-5" />
