@@ -11,17 +11,19 @@ export function proxy(request: NextRequest) {
       return NextResponse.next();
     }
 
-    // Check for Better Auth session cookie presence (all possible names)
-    const cookieNames = [
-      "session_token",
-      "better-auth.session_token",
-      "__secure-session_token",
-      "__secure-better-auth.session_token",
-      "__host-session_token",
-      "__host-better-auth.session_token",
-    ];
+    // Check for ANY session-like cookie (better-auth uses various names)
+    const allCookies = request.cookies.getAll();
+    const hasSession = allCookies.some((cookie) => {
+      const name = cookie.name.toLowerCase();
+      return (
+        name.includes("session") ||
+        name.includes("auth") ||
+        name === "session_token"
+      );
+    });
 
-    const hasSession = cookieNames.some((name) => request.cookies.has(name));
+    // Debug: log what cookies we see (check Vercel function logs)
+    console.log("[MIDDLEWARE] Path:", pathname, "Cookies:", allCookies.map(c => c.name));
 
     if (!hasSession) {
       // Redirect to login page
