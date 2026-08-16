@@ -1,8 +1,6 @@
-import { FadeInSection } from "@/components/shared/fade-in-section";
-
 export function SocialProofSection() {
   return (
-    <FadeInSection className="bg-background">
+    <section className="bg-background">
       <div className="mx-auto max-w-6xl px-4 py-24 w-full">
         <div className="max-w-3xl">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-red-700">Social proof</p>
@@ -27,6 +25,6 @@ export function SocialProofSection() {
           </div>
         </div>
       </div>
-    </FadeInSection>
+    </section>
   );
 }

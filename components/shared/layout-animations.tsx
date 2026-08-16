@@ -21,14 +21,24 @@ export function LayoutAnimations({ children }: { children: React.ReactNode }) {
     });
 
     lenis.on("scroll", ScrollTrigger.update);
-    gsap.ticker.add((time) => lenis.raf(time * 1000));
+    
+    const tickerUpdate = (time: number) => {
+      lenis.raf(time * 1000);
+    };
+    
+    gsap.ticker.add(tickerUpdate);
     gsap.ticker.lagSmoothing(0);
+
+    return () => {
+      gsap.ticker.remove(tickerUpdate);
+      lenis.destroy();
+    };
   }, []);
 
   return (
     <div
       ref={containerRef}
-      className="relative flex flex-col bg-background text-foreground transition-colors duration-350 selection:bg-zinc-800 selection:text-zinc-100"
+      className="relative flex flex-1 flex-col bg-background text-foreground transition-colors duration-350 selection:bg-zinc-800 selection:text-zinc-100"
     >
       {children}
     </div>

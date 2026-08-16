@@ -204,6 +204,8 @@ type MapProps = {
   onViewportChange?: (viewport: MapViewport) => void;
   /** Show a loading indicator on the map */
   loading?: boolean;
+  /** Callback fired when map loading errors occur */
+  onError?: (error: any) => void;
 } & Omit<MapLibreGL.MapOptions, "container" | "style">;
 
 function DefaultLoader() {
@@ -309,15 +311,18 @@ const Map = forwardRef<MapRef, MapProps>(function Map(
       onViewportChangeRef.current?.(getViewport(map));
     };
 
+    const errorHandler = (e: any) => props.onError?.(e);
     map.on("load", loadHandler);
     map.on("style.load", styleLoadHandler);
     map.on("move", handleMove);
+    map.on("error", errorHandler);
     setMapInstance(map);
 
     return () => {
       map.off("load", loadHandler);
       map.off("style.load", styleLoadHandler);
       map.off("move", handleMove);
+      map.off("error", errorHandler);
       map.remove();
       setIsLoaded(false);
       setIsStyleLoaded(false);

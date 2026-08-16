@@ -1,4 +1,3 @@
-import { FadeInSection } from "@/components/shared/fade-in-section";
 import Link from "next/link";
 
 export function AboutSection() {

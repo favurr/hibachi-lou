@@ -10,19 +10,19 @@ export function ExperienceSection() {
         <div className="absolute inset-0 bg-black/60" />
 
         <div className="relative z-10 mx-auto max-w-6xl px-4 py-24 w-full">
-          <div className="max-w-3xl space-y-8 text-cream">
+          <div className="max-w-3xl space-y-8 text-background">
             <div className="space-y-4">
               <h2 className="font-heading text-5xl font-bold tracking-tight md:text-7xl leading-[0.88]">
                 IT&apos;S NOT<br />
                 JUST FOOD.<br />
                 IT&apos;S THE SHOW.
               </h2>
-              <p className="text-lg text-cream/80 md:text-xl leading-relaxed">
+              <p className="text-lg text-background/80 md:text-xl leading-relaxed">
                 Watch the grill, smell the flame, and eat while the show is still happening.
               </p>
             </div>
 
-            <div className="flex flex-wrap gap-6 font-mono text-sm uppercase tracking-[0.2em] text-cream/90">
+            <div className="flex flex-wrap gap-6 font-mono text-sm uppercase tracking-[0.2em] text-background/90">
               <span>FIRE</span>
               <span>FLAVOR</span>
               <span>FRESH</span>

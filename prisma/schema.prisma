@@ -101,35 +101,78 @@ model DailySpecial {
 }
 
 model Location {
-  id        String   @id @default(cuid())
-  venue     String
-  address   String?
-  date      DateTime
-  startTime String
-  endTime   String
-  notes     String?
-  published Boolean  @default(true)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         String   @id @default(cuid())
+  slug       String?  @unique
+  venue      String
+  address    String?
+  date       DateTime
+  startTime  String
+  endTime    String
+  latitude   Float?
+  longitude  Float?
+  mapsUrl    String?
+  visibility String   @default("PUBLIC") // PUBLIC, PRIVATE
+  status     String   @default("ACTIVE") // ACTIVE, CANCELLED
+  menuId     String?
+  notes      String?
+  published  Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
   @@map("location")
 }
 
 model Order {
-  id         String      @id @default(cuid())
-  customer   User?       @relation(fields: [customerId], references: [id])
-  customerId String?
-  guestName  String
-  guestPhone String
-  guestEmail String
-  eventDate  DateTime?
-  guestCount Int?
-  message    String?
-  status     OrderStatus @default(NEW)
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
+  id            String      @id @default(cuid())
+  friendlyId    String      @unique // E.g., HL-A3F9K
+  secureToken   String      @unique @default(uuid())
+  customer      User?       @relation(fields: [customerId], references: [id])
+  customerId    String?
+  guestName     String
+  guestPhone    String
+  guestEmail    String
+  pickupTime    String?
+  totalAmount   Float
+  paymentStatus String      @default("PENDING")
+  paymentId     String?     @unique
+  status        OrderStatus @default(RECEIVED)
+  items         OrderItem[]
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
 
   @@map("order")
+}
+
+model OrderItem {
+  id         String   @id @default(cuid())
+  orderId    String
+  order      Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  menuItemId String
+  name       String
+  price      Float
+  quantity   Int
+  createdAt  DateTime @default(now())
+
+  @@map("order_item")
+}
+
+model CateringRequest {
+  id          String         @id @default(cuid())
+  name        String
+  email       String
+  phone       String
+  eventType   String
+  guestCount  Int
+  date        DateTime
+  startTime   String
+  location    String
+  serviceType String
+  message     String?
+  status      CateringStatus @default(NEW)
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  @@map("catering_request")
 }
 
 model Shift {
@@ -159,6 +202,103 @@ model InventoryItem {
   @@map("inventory_item")
 }
 
+model SiteSettings {
+  id            String  @id @default("default")
+  contactPhone  String  @default("(412) 953-6101")
+  contactEmail  String  @default("info@hibachilou.com")
+  announcement  String?
+  servingStatus String  @default("CLOSED") // OPEN, BUSY, CLOSED
+
+  @@map("site_settings")
+}
+
+model ContentSection {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  title     String
+  subtitle  String?
+  body      String?
+  imageUrl  String?
+  ctaText   String?
+  ctaUrl    String?
+  updatedAt DateTime @updatedAt
+
+  @@map("content_section")
+}
+
+model Testimonial {
+  id           String   @id @default(cuid())
+  author       String
+  role         String?
+  quote        String
+  rating       Int      @default(5)
+  published    Boolean  @default(true)
+  imageUrl     String?
+  displayOrder Int      @default(0)
+  featured     Boolean  @default(false)
+  createdAt    DateTime @default(now())
+
+  @@map("testimonial")
+}
+
+model CateringPackage {
+  id             String   @id @default(cuid())
+  name           String
+  slug           String   @unique
+  description    String
+  imageUrl       String?
+  menuItems      String[]
+  startingPrice  Float
+  priceVisible   Boolean  @default(true)
+  minGuests      Int      @default(10)
+  featured       Boolean  @default(false)
+  displayOrder   Int      @default(0)
+  published      Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@map("catering_package")
+}
+
+model CateringEventType {
+  id           String   @id @default(cuid())
+  name         String
+  slug         String   @unique
+  description  String
+  imageUrl     String?
+  displayOrder Int      @default(0)
+  published    Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("catering_event_type")
+}
+
+model CateringFaq {
+  id           String   @id @default(cuid())
+  question     String
+  answer       String
+  displayOrder Int      @default(0)
+  published    Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("catering_faq")
+}
+
+model CateringGalleryItem {
+  id           String   @id @default(cuid())
+  title        String
+  hint         String?
+  imageUrl     String
+  displayOrder Int      @default(0)
+  published    Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("catering_gallery_item")
+}
+
 enum Role {
   OWNER
   MANAGER
@@ -168,11 +308,24 @@ enum Role {
 }
 
 enum OrderStatus {
-  NEW
-  QUOTED
-  CONFIRMED
+  RECEIVED
+  PREPARING
+  COOKING
+  READY
   COMPLETED
   CANCELLED
 
   @@map("order_status")
 }
+
+enum CateringStatus {
+  NEW
+  CONTACTED
+  QUOTE_SENT
+  CONFIRMED
+  COMPLETED
+
+  @@map("catering_status")
+}
+
+

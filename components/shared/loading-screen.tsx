@@ -3,121 +3,83 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 
+const LOADER_KEY = "hibachi-lou-loader-shown";
+
 interface LoadingScreenProps {
   onComplete: () => void;
 }
 
 export function LoadingScreen({ onComplete }: LoadingScreenProps) {
-  const overlayRef = useRef<HTMLDivElement>(null);
-  const lettersRef = useRef<(HTMLSpanElement | null)[]>([]);
-  const lineRef = useRef<HTMLDivElement>(null);
-  const subtitleRef = useRef<HTMLSpanElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
+  const counterRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
-    const overlay = overlayRef.current;
-    const line = lineRef.current;
-    const subtitle = subtitleRef.current;
-    const letters = lettersRef.current.filter(Boolean) as HTMLSpanElement[];
+    const ctx = gsap.context(() => {
+      const counter = counterRef.current;
+      const obj = { value: 0 };
+      const tl = gsap.timeline({
+        defaults: { ease: "power3.inOut" },
+        onComplete: () => {
+          if (ref.current) {
+            gsap.set(ref.current, { display: "none" });
+          }
+          onComplete();
+        },
+      });
 
-    if (!overlay || !line || !subtitle || letters.length === 0) {
-      // Bail safely — still call onComplete so the app isn't stuck
-      onComplete();
-      return;
-    }
+      tl.fromTo(
+        ".loader-progress",
+        { scaleX: 0 },
+        { scaleX: 1, duration: 0.8 }
+      )
+      .fromTo(
+        ".loader-counter",
+        { opacity: 0, y: 10 },
+        { opacity: 1, y: 0, duration: 0.6 },
+        "<"
+      )
+      .to(obj, {
+        value: 100,
+        duration: 0.8,
+        ease: "power2.inOut",
+        onUpdate: () => {
+          if (counter) {
+            counter.textContent = `${Math.round(obj.value)}%`;
+          }
+        },
+      }, "<")
+      .to(ref.current, {
+        yPercent: -100,
+        duration: 0.8,
+        ease: "power4.inOut",
+      });
+    }, ref);
 
-    // Set initial states
-    gsap.set(letters, { y: 60, opacity: 0, rotateX: -90 });
-    gsap.set(line, { scaleX: 0 });
-    gsap.set(subtitle, { opacity: 0, y: 10 });
-
-    // One single timeline — no nested callbacks
-    const tl = gsap.timeline({
-      onComplete,
-    });
-
-    // 1. Letters stagger in
-    tl.to(letters, {
-      y: 0,
-      opacity: 1,
-      rotateX: 0,
-      duration: 0.7,
-      stagger: 0.07,
-      ease: "power4.out",
-    });
-
-    // 2. Line expands
-    tl.to(line, {
-      scaleX: 1,
-      duration: 0.5,
-      ease: "power3.inOut",
-    }, "-=0.25");
-
-    // 3. Subtitle appears
-    tl.to(subtitle, {
-      opacity: 1,
-      y: 0,
-      duration: 0.4,
-      ease: "power2.out",
-    }, "-=0.15");
-
-    // 4. Hold
-    tl.to({}, { duration: 0.5 });
-
-    // 5. Everything fades out together
-    tl.to([...letters, line, subtitle], {
-      opacity: 0,
-      y: -20,
-      duration: 0.4,
-      ease: "power3.in",
-    });
-
-    // 6. Overlay slides up and away — last step in the same timeline
-    tl.to(overlay, {
-      yPercent: -100,
-      duration: 0.7,
-      ease: "power4.inOut",
-    });
-
-    return () => {
-      tl.kill();
-    };
-  }, [onComplete]);
-
-  const name = "HIBACHI LOU";
+    return () => ctx.revert();
+  }, []);
 
   return (
     <div
-      ref={overlayRef}
-      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-background"
-      style={{ perspective: "600px", willChange: "transform" }}
+      ref={ref}
+      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background"
     >
-      <div
-        className="flex items-center justify-center gap-[0.04em] select-none"
-        style={{ transformStyle: "preserve-3d" }}
-      >
-        {name.split("").map((char, i) => (
-          <span
-            key={i}
-            ref={(el) => { lettersRef.current[i] = el; }}
-            className="font-serif text-6xl sm:text-8xl md:text-9xl font-medium tracking-[0.05em] text-foreground inline-block"
-            style={{ transformOrigin: "center bottom" }}
-          >
-            {char}
-          </span>
-        ))}
+      <p className="font-heading text-4xl font-semibold tracking-tight text-foreground md:text-6xl">
+        HIBACHI LOU
+      </p>
+      <p className="mt-3 font-mono text-sm tracking-widest text-muted-foreground">
+        PITTSBURGH / 412
+      </p>
+      <div className="absolute bottom-10 right-10 flex flex-col items-end">
+        <span ref={counterRef} className="loader-counter font-mono text-6xl font-light text-foreground md:text-8xl">
+          0%
+        </span>
       </div>
-
-      <div
-        ref={lineRef}
-        className="mt-6 h-px w-24 bg-foreground/40 origin-center"
-      />
-
-      <span
-        ref={subtitleRef}
-        className="mt-4 font-sans text-[11px] uppercase tracking-[0.35em] text-muted-foreground font-medium"
-      >
-        412 / PITTSBURGH
-      </span>
+      <div className="absolute bottom-10 left-10 h-1 w-32 overflow-hidden rounded-full bg-muted">
+        <div
+          className="loader-progress h-full origin-left scale-x-0 bg-primary"
+          style={{ transformOrigin: "left" }}
+        />
+      </div>
     </div>
   );
 }

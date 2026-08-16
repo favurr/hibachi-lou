@@ -3,6 +3,8 @@
 import { useState, useEffect, useCallback } from "react";
 import { LoadingScreen } from "@/components/shared/loading-screen";
 import { TransitionProvider } from "@/components/shared/transition-provider";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { CartProvider } from "@/components/shared/cart-context";
 
 export function PublicShell({ children }: { children: React.ReactNode }) {
   const [showLoader, setShowLoader] = useState(true);
@@ -20,15 +22,20 @@ export function PublicShell({ children }: { children: React.ReactNode }) {
   const handleLoadingComplete = useCallback(() => {
     document.body.style.overflow = "";
     setShowLoader(false);
+    requestAnimationFrame(() => {
+      ScrollTrigger.refresh();
+    });
   }, []);
 
   return (
-    <TransitionProvider>
-      {/* Loading screen overlay — sits ON TOP of content on hard load */}
-      {showLoader && <LoadingScreen onComplete={handleLoadingComplete} />}
+    <CartProvider>
+      <TransitionProvider>
+        {/* Loading screen overlay — sits ON TOP of content on hard load */}
+        {showLoader && <LoadingScreen onComplete={handleLoadingComplete} />}
 
-      {/* Content is wrapped within the provider layout */}
-      {children}
-    </TransitionProvider>
+        {/* Content is wrapped within the provider layout */}
+        {children}
+      </TransitionProvider>
+    </CartProvider>
   );
 }

@@ -66,14 +66,16 @@ export const metadata: Metadata = {
     "Fresh hibachi grilled to order around Pittsburgh. Book Lou for catering, weddings, and events.",
 };
 
+import { CartDrawer } from "@/components/public/cart-drawer";
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} ${theSeasons.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${theSeasons.variable} antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-background text-foreground">
+      <body className="min-h-screen flex flex-col bg-background text-foreground">
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
@@ -84,6 +86,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <LayoutAnimations>
               <PublicNav />
               <main className="flex-1">{children}</main>
+              <CartDrawer />
               <Footer />
             </LayoutAnimations>
           </PublicShell>

@@ -8,11 +8,11 @@ import { Button } from "@/components/ui/button";
 import { TransitionLink } from "../shared/transition-provider";
 
 const SECTIONS = [
-  { href: "/#menu", label: "MENU" },
+  { href: "/menu", label: "MENU" },
   { href: "/#gallery", label: "GALLERY" },
   { href: "/#about", label: "ABOUT" },
-  { href: "/#locations", label: "LOCATIONS" },
-  { href: "/#catering", label: "CATERING" },
+  { href: "/locations", label: "LOCATIONS" },
+  { href: "/catering", label: "CATERING" },
   { href: "/#contact", label: "BOOK LOU →" },
 ];
 
@@ -21,16 +21,21 @@ export function PublicNav() {
   const [open, setOpen] = useState(false);
   const isHome = pathname === "/";
 
-  const desktopLinks = SECTIONS.map((item) => (
-    <Link key={item.href} href={isHome ? item.href.replace(/^\/#/, "#") : item.href} className="hover:text-primary">
-      {item.label}
-    </Link>
-  ));
+  const desktopLinks = SECTIONS.map((item) => {
+    const isAnchor = item.href.startsWith("/#");
+    const href = isAnchor && isHome ? item.href.replace(/^\/#/, "#") : item.href;
+    return (
+      <Link key={item.href} href={href} className="hover:text-primary">
+        {item.label}
+      </Link>
+    );
+  });
 
   const mobileLinks = SECTIONS.map((item) => {
-    const href = isHome ? item.href.replace(/^\/#/, "#") : item.href;
+    const isAnchor = item.href.startsWith("/#");
+    const href = isAnchor && isHome ? item.href.replace(/^\/#/, "#") : item.href;
     return (
-      <Link key={href} href={href} onClick={() => setOpen(false)}>
+      <Link key={item.href} href={href} onClick={() => setOpen(false)}>
         {item.label}
       </Link>
     );
