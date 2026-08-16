@@ -37,14 +37,12 @@ export async function submitCateringRequest(data: unknown) {
       },
     });
 
-    // Mock Email Alert / Log Notification
+    // Mock Email Alert / Log Notification (sanitized - no PII)
     console.log(`[EMAIL ALERT] New Catering Request submitted!
 Reference ID: ${request.id}
-Client: ${request.name} (${request.email} / ${request.phone})
 Event: ${request.eventType} for ${request.guestCount} guests on ${request.date.toLocaleDateString()} at ${request.startTime}
 Location: ${request.location}
-Package: ${request.serviceType}
-Message: ${request.message || "None"}`);
+Package: ${request.serviceType}`);
 
     revalidatePath("/admin");
     return { success: true, referenceId: request.id };
